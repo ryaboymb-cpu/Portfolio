@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Msgp2p | Fullstack & Telegram TMA Developer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@300;500;800&display=swap" rel="stylesheet">
+    <title>Msgp2p // Premium JS & TON Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Space+Grotesk:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #03050d;
-            --neon-blue: #00f3ff;
-            --neon-gold: #ffd700;
-            --text-main: #e2e8f0;
+            --bg-deep-space: #020512;
+            --bg-ton-blue: #031c3c; /* TON Blue gradient base */
+            --neon-cyan: #00f3ff;
+            --ton-gold: #fcc419; /* TON Gold accent */
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --glass: rgba(10, 15, 30, 0.4);
         }
 
         * {
@@ -22,42 +24,51 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: radial-gradient(circle at center, var(--bg-ton-blue) 0%, var(--bg-deep-space) 70%);
             color: var(--text-main);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            min-height: 100vh;
         }
 
-        /* Canvas Background */
-        #particle-canvas {
+        /* Fullscreen Canvas for Cosmic WOW Factor */
+        #cosmic-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            z-index: -1;
+            z-index: -2;
             pointer-events: none;
         }
 
-        /* Typography */
+        /* Typography & Glitch */
         h1, h2, h3 {
             font-family: 'Fira Code', monospace;
             text-transform: uppercase;
+            letter-spacing: -1px;
         }
 
         .glitch-text {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             color: #fff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+            margin-bottom: 0.5rem;
             position: relative;
+            animation: glitch-glow 3s infinite alternate;
+        }
+
+        @keyframes glitch-glow {
+            0%, 100% { text-shadow: 0 0 15px var(--neon-cyan), 0 0 30px var(--neon-cyan); }
+            50% { text-shadow: 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan), 0 0 10px #fff; }
         }
 
         .highlight-gold {
-            color: var(--neon-gold);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            color: var(--ton-gold);
+            text-shadow: 0 0 10px rgba(252, 196, 25, 0.5);
+            font-weight: 700;
         }
 
         /* Layout */
@@ -65,6 +76,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         section {
@@ -72,237 +85,441 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 5rem 0;
+            padding: 6rem 0;
         }
 
-        /* Hero Section */
+        /* Hero Section - Maximum Impact */
         #hero {
-            align-items: flex-start;
+            align-items: center;
+            text-align: center;
         }
 
         #hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
-            max-width: 600px;
-            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            font-weight: 300;
         }
 
-        .btn {
+        .btn-neon {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1.2rem 3rem;
             background: transparent;
-            color: var(--neon-blue);
-            border: 1px solid var(--neon-blue);
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
             font-family: 'Fira Code', monospace;
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1) inset;
-            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn:hover {
+        .btn-neon::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -100%; width: 200%; height: 200%;
             background: rgba(0, 243, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.4) inset, 0 0 20px rgba(0, 243, 255, 0.2);
-            text-shadow: 0 0 5px var(--neon-blue);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
         }
 
-        /* Skills Grid */
+        .btn-neon:hover::after {
+            left: 100%;
+        }
+
+        .btn-neon:hover {
+            background: rgba(0, 243, 255, 0.05);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5), 0 0 10px rgba(0, 243, 255, 0.3);
+            text-shadow: 0 0 5px var(--neon-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Cards and Grid - Highly Polished Glassmorphism */
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            border-bottom: 2px solid var(--neon-blue);
-            padding-bottom: 1rem;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
             display: inline-block;
+            position: relative;
+            color: #fff;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px; left: 0; width: 60px; height: 4px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
         }
 
         .card {
-            background: rgba(10, 15, 30, 0.6);
-            border: 1px solid rgba(0, 243, 255, 0.2);
-            padding: 2rem;
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            background: var(--glass);
+            border: 1px solid rgba(0, 243, 255, 0.15);
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
         }
 
         .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--neon-gold);
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.1);
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--ton-gold);
+            box-shadow: 0 15px 40px rgba(252, 196, 25, 0.15);
+        }
+        
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--neon-cyan);
         }
 
         .card h3 {
-            color: var(--neon-blue);
-            margin-bottom: 1rem;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            position: relative;
+        }
+        
+        .card:hover h3 {
+            color: var(--ton-gold);
         }
 
-        /* Animations for Scroll */
+        .card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        /* Project Specific Styling */
+        .project-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            background: rgba(252, 196, 25, 0.1);
+            color: var(--ton-gold);
+            padding: 0.3rem 0.8rem;
+            border-radius: 2px;
+            border: 1px solid rgba(252, 196, 25, 0.2);
+            margin-right: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Scroll Animations */
         .hidden {
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .show {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 3rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
             font-family: 'Fira Code', monospace;
+            background: rgba(1, 3, 10, 0.8);
+            position: relative;
+            z-index: 1;
         }
 
         footer a {
-            color: var(--neon-gold);
+            color: var(--neon-cyan);
             text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        footer a:hover {
+            color: var(--ton-gold);
+        }
+
+        @media (max-width: 768px) {
+            .glitch-text { font-size: 2.8rem; }
+            .section-title { font-size: 2rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particle-canvas"></canvas>
+    <canvas id="cosmic-canvas"></canvas>
 
     <div class="container">
         <section id="hero" class="hidden">
             <h1 class="glitch-text">MSGP2P</h1>
-            <h2 class="highlight-gold" style="font-size: 1.5rem; margin-bottom: 1rem;">JavaScript & Telegram Mini App Developer</h2>
-            <p>Проектирую и разрабатываю сложные Web-приложения внутри Telegram. От ботов и смарт-интеграций до полноценных TMA с подключением Web3 (TON). Создаю продукты, которые выглядят и работают безупречно.</p>
-            <a href="https://t.me/msgp2p" target="_blank" class="btn">Связаться в Telegram</a>
+            <h2 class="highlight-gold" style="font-size: 1.6rem; margin-bottom: 1.5rem;">Architector of Telegram Mini Apps & TON</h2>
+            <p>Проектирую высокопроизводительные системы внутри Telegram. От сложной логики <span class="highlight-gold">Mini Apps</span> до глубокой интеграции с блокчейном <span class="highlight-gold">TON</span>. Я создаю цифровые продукты, которые работают безотказно и выглядят безупречно. </p>
+            <a href="https://t.me/msgp2p" target="_blank" class="btn-neon">Инициализировать контакт</a>
+        </section>
+
+        <section id="projects" class="hidden">
+            <h2 class="section-title">Проекты</h2>
+            <div class="grid">
+                <div class="card" style="border-color: var(--ton-gold); box-shadow: 0 0 20px rgba(252, 196, 25, 0.1);">
+                    <div class="card-icon">🎰</div>
+                    <h3>@LoonxGift_Bot</h3>
+                    <p>Комплексная разработка масштабируемого <span class="highlight-gold">Telegram Mini App</span>. Создана архитектура высоконагруженного бэкенда, реализованы механики онлайн-казино (слоты, кейсы, рулетка) и подключены платежные системы, включая мгновенные депозиты и выводы в <span class="highlight-gold">TON</span>.</p>
+                    <div style="margin-top: auto;">
+                        <span class="project-tag">TMA</span>
+                        <span class="project-tag">TON Integration</span>
+                        <span class="project-tag">Backend</span>
+                        <span class="project-tag">Game Logic</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">💸</div>
+                    <h3>P2P Trading Core</h3>
+                    <p>Проектирование и разработка ядра для P2P-обменной платформы. Реализация системы эскроу-счетов, автоматический матчинг ордеров, интеграция с внешними банковскими API и защита от фрода. Высокая надежность и транзакционность.</p>
+                    <div>
+                        <span class="project-tag">JS</span>
+                        <span class="project-tag">Architecture</span>
+                        <span class="project-tag">Security</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-icon">🖼️</div>
+                    <h3>TON NFT Analytics</h3>
+                    <p>Разработка инструментов для глубокого анализа NFT-коллекций в сети TON. Отслеживание китов, история продаж, realtime-мониторинг минта и визуализация данных с использованием сложных графиков на Canvas.</p>
+                    <div>
+                        <span class="project-tag">TON</span>
+                        <span class="project-tag">Web3</span>
+                        <span class="project-tag">Data Vis</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="expertise" class="hidden">
             <h2 class="section-title">Экспертиза</h2>
             <div class="grid">
                 <div class="card">
-                    <h3>Telegram Mini Apps (TMA)</h3>
-                    <p>Полный цикл разработки мини-приложений. Интеграция с Telegram Web Apps API, сложная маршрутизация, адаптивный UI/UX под мобильные устройства.</p>
+                    <h3>Full-Cycle TMA Dev</h3>
+                    <p>Превращаю идеи в полноценные Telegram Mini Apps. Владею всем стеком: от верстки UI до сложной бизнес-логики бэкенда и настройки серверной инфраструктуры (например, на Render).</p>
                 </div>
                 <div class="card">
-                    <h3>Frontend & JS Ecosystem</h3>
-                    <p>Глубокое понимание JavaScript. Создание интерактивных интерфейсов, работа с Canvas, сложными анимациями и реактивными фреймворками.</p>
+                    <h3>Native JS / Canvas</h3>
+                    <p>Глубокое понимание JavaScript. Создание сложных интерфейсов без фреймворков, написание кастомных движков для анимаций и визуализаций на Canvas (как этот сайт).</p>
                 </div>
                 <div class="card">
-                    <h3>TON Integration</h3>
-                    <p>Подключение TON Connect, настройка манифестов, реализация оплаты и депозитов через TON Center. Взаимодействие со смарт-контрактами.</p>
-                </div>
-                <div class="card">
-                    <h3>Advanced Telegram Bots</h3>
-                    <p>Разработка производительных ботов любой сложности. Обработка платежей, интеграция с базами данных и внешними API.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects" class="hidden">
-            <h2 class="section-title">Проекты</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Loonx Gifts</h3>
-                    <p class="highlight-gold" style="font-size: 0.9rem; margin-bottom: 1rem;">Lead Developer</p>
-                    <p>Масштабное Telegram Mini App. Разработка архитектуры, интеграция платежных систем (включая крипто-платежи), механики открытия кейсов и слотов. Поддержка стабильности системы при высоких нагрузках.</p>
-                </div>
-                <div class="card">
-                    <h3>Gold Rain Concept</h3>
-                    <p class="highlight-gold" style="font-size: 0.9rem; margin-bottom: 1rem;">Game Mechanics</p>
-                    <p>Разработка математических моделей и клиентской логики для мини-игр в Telegram с системами множителей и контролем рисков (RTP-конфигурации).</p>
-                </div>
-                <div class="card">
-                    <h3>NFT & Market Tools</h3>
-                    <p class="highlight-gold" style="font-size: 0.9rem; margin-bottom: 1rem;">Web3 Integration</p>
-                    <p>Инструменты для отслеживания и взаимодействия с экосистемой Telegram NFT-подарков. Интеграция с блокчейн-данными в реальном времени.</p>
+                    <h3>TON / Web3 Ecosystem</h3>
+                    <p>Интеграция TON Connect, работа с Jettons, реализация оплаты в TON, взаимодействие с API блокчейна. Понимание принципов безопасности смарт-контрактов.</p>
                 </div>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>System Initialized by <a href="https://t.me/msgp2p" target="_blank">@msgp2p</a> // 2026</p>
+        <p>System Online // Developed by <a href="https://t.me/msgp2p" target="_blank">@msgp2p</a> // 2026 // <span class="highlight-gold">TON POWERED</span></p>
     </footer>
 
     <script>
-        // 1. Анимация появления блоков при скролле (Intersection Observer)
+        // --- 1. Intersection Observer for Scroll Animations ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
 
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
+        document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
 
-        // 2. Эффект золотой пыли на Canvas
-        const canvas = document.getElementById('particle-canvas');
+        // --- 2. Advanced Cosmic Canvas Animation with Detailed Asteroids ---
+        const canvas = document.getElementById('cosmic-canvas');
         const ctx = canvas.getContext('2d');
         
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let width, height;
+        let stars = [];
+        let asteroids = [];
+        
+        const setCanvasSize = () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        };
+        setCanvasSize();
 
-        let particlesArray = [];
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5; // Мелкие частицы
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5 - 0.2; // Медленно плывут вверх
-                this.opacity = Math.random() * 0.5 + 0.1;
+        // Star Class (simple, background layer)
+        class Star {
+            constructor(depth) {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 1.5 + 0.1;
+                this.depth = depth; // Creates parallax effect
+                this.baseAlpha = Math.random() * 0.5 + 0.1;
+                this.alpha = this.baseAlpha;
+                this.twinkleSpeed = Math.random() * 0.02 + 0.005;
             }
             update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Возврат частиц, если они ушли за экран
-                if (this.y < 0) this.y = canvas.height;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
+                // Background stars move very slowly
+                this.y += 0.05 * this.depth;
+                if (this.y > height) this.y = -10;
+                
+                // Twinkle effect
+                this.alpha += this.twinkleSpeed;
+                if (this.alpha > 0.7 || this.alpha < this.baseAlpha) {
+                    this.twinkleSpeed *= -1;
+                }
             }
             draw() {
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                // Золотой цвет пыли
-                ctx.fillStyle = `rgba(255, 215, 0, ${this.opacity})`;
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = '#ffd700';
+                ctx.arc(this.x, this.y, this.size * this.depth, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha * this.depth})`;
                 ctx.fill();
             }
         }
 
-        function initParticles() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 8000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
+        // --- THE WOW FACTOR: Detailed Procedural Asteroid Class ---
+        class Asteroid {
+            constructor() {
+                this.reset();
+                this.y = Math.random() * height; // Distribute vertically at start
+            }
+
+            reset() {
+                this.x = width + (Math.random() * 400); // Start off-screen
+                this.y = Math.random() * height * 0.8 + (height * 0.1);
+                
+                // Detailed Procedural Geometry
+                this.baseRadius = Math.random() * 35 + 8; // Varies size
+                this.numVertices = Math.floor(this.baseRadius / 2) + 10;
+                this.vertices = [];
+                for (let i = 0; i < this.numVertices; i++) {
+                    const angle = (i / this.numVertices) * Math.PI * 2;
+                    // Irregularity factor (noise)
+                    const noise = 1 + (Math.random() - 0.5) * 0.5;
+                    this.vertices.push({
+                        r: this.baseRadius * noise,
+                        angle: angle
+                    });
+                }
+                
+                // Physics
+                this.speed = Math.random() * 0.8 + 0.3; // Speed (flies left)
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+                
+                // Visual Details
+                this.craterRadius = Math.random() * this.baseRadius * 0.4 + 2;
+                // псевдо-3D shading gradient settings
+                this.lightAngle = Math.PI * 0.25; // Light from top-left
+            }
+
+            update() {
+                this.x -= this.speed;
+                this.rotation += this.rotationSpeed;
+                
+                // Wrap around screen
+                if (this.x < -this.baseRadius * 2) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                
+                // 1. Draw Asteroid Shape with Base Shading
+                ctx.beginPath();
+                const first = this.vertices[0];
+                ctx.moveTo(
+                    Math.cos(first.angle) * first.r,
+                    Math.sin(first.angle) * first.r
+                );
+                for (let i = 1; i < this.vertices.length; i++) {
+                    const v = this.vertices[i];
+                    ctx.lineTo(
+                        Math.cos(v.angle) * v.r,
+                        Math.sin(v.angle) * v.r
+                    );
+                }
+                ctx.closePath();
+                
+                // Create a linear gradient for 3D depth (shadow)
+                const grd = ctx.createLinearGradient(
+                    -this.baseRadius, -this.baseRadius, 
+                    this.baseRadius, this.baseRadius
+                );
+                grd.addColorStop(0, '#556'); // Light rock
+                grd.addColorStop(1, '#1a1a24'); // Dark rock (shadow)
+                
+                ctx.fillStyle = grd;
+                ctx.fill();
+                
+                // 2. Add Craters for Detail
+                ctx.beginPath();
+                // Draw a simple dark crater on the shaded side
+                ctx.arc(this.baseRadius * 0.3, this.baseRadius * 0.3, this.craterRadius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'; // Crater fill
+                ctx.fill();
+                
+                // Add minor lighting detail
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+
+                ctx.restore();
             }
         }
 
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-            }
-            requestAnimationFrame(animateParticles);
-        }
+        // Initialize Cosmic Elements
+        const initCosmos = () => {
+            stars = [];
+            asteroids = [];
+            
+            // Background Stars (layers for parallax)
+            for (let i = 0; i < 200; i++) stars.push(new Star(0.2));
+            for (let i = 0; i < 100; i++) stars.push(new Star(0.5));
+            for (let i = 0; i < 50; i++) stars.push(new Star(0.8));
+            
+            // Detailed Asteroids (flies through)
+            for (let i = 0; i < 8; i++) asteroids.push(new Asteroid());
+        };
 
-        initParticles();
-        animateParticles();
+        const animate = () => {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Layer 1: Stars
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
+            
+            // Layer 2: Detailed Asteroids
+            asteroids.forEach(asteroid => {
+                asteroid.update();
+                asteroid.draw();
+            });
+            
+            requestAnimationFrame(animate);
+        };
 
+        // Execution
+        initCosmos();
+        animate();
+
+        // Resize handler
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            initParticles();
+            setCanvasSize();
+            initCosmos();
         });
     </script>
 </body>
